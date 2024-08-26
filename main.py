@@ -24,8 +24,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Connect user to Spotify API
-    #sp = connectUser(args.client_id, args.client_secret)
-    sp = connectUser(os.getenv("CLIENT_ID"), os.getenv("CLIENT_SECRET"))  # for local developement
+    sp = connectUser(args.client_id, args.client_secret)
+    #sp = connectUser(os.getenv("CLIENT_ID"), os.getenv("CLIENT_SECRET"))  # for local developement
 
     #  Search for Weezer songs
     results = sp.search(q='weezer', limit=20)
