@@ -34,10 +34,9 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Create Environment
+    - name: Create Environment and execute py script
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
-
-    - name: execute py script
+        
       run: python main.py $CLIENT_ID $CLIENT_SECRET
