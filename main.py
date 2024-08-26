@@ -3,30 +3,31 @@ from argparse import ArgumentParser
 from dotenv import load_dotenv
 import os
 
-# For local developement
-load_dotenv()
+load_dotenv()  # for local developement
 
 def connectUser(id: str, secret: str) -> spotipy.Spotify:
-    '''Connects the user to the API'''
-
-    scope = "user-library-read"
-
-    auth_manager = spotipy.SpotifyOAuth(client_id=id, 
-                                        client_secret=secret, 
-                                        redirect_uri="http://localhost:8000", 
-                                        scope=scope)
-
-    return spotipy.Spotify(auth_manager=auth_manager)
-
+    """ Connects the user to the API
+    @param id: Client ID
+    @param secret: Client Secret
+    @return: Spotify API client"""
+    
+    sp = spotipy.Spotify(auth_manager=spotipy.SpotifyClientCredentials(client_id=id,
+                                                                       client_secret=secret))
+    return sp
 
 
 if __name__ == "__main__":
+    # Parse console arguments
     parser = ArgumentParser()
-    parser.add_argument('username', help="Username", nargs='?', default="")
-    parser.add_argument('api_token', help="API Token", nargs='?', default="")
+    parser.add_argument('client_id', help="Username", nargs='?', default="")
+    parser.add_argument('client_secret', help="API Token", nargs='?', default="")
     args = parser.parse_args()
 
-    print("Hello World!")
+    # Connect user to Spotify API
+    #sp = connectUser(args.client_id, args.client_secret)
+    sp = connectUser(os.getenv("CLIENT_ID"), os.getenv("CLIENT_SECRET"))  # for local developement
 
-    #connectUser(args.username, args.api_token)
-    sp = connectUser(os.getenv("CLIENT_ID"), os.getenv("CLIENT_SECRET"))
+    #  Search for Weezer songs
+    results = sp.search(q='weezer', limit=20)
+    for idx, track in enumerate(results['tracks']['items']):
+        print(idx, track['name'])
