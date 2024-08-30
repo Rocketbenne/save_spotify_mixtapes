@@ -38,6 +38,6 @@ jobs:
       shell: bash
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
-        CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        CLIENT_SECRET: ${{ secrets.CLIENT_SECERET }}
         
-      run: python main.py "$CLIENT_ID" "$CLIENT_SECERET"
+      run: python main.py "$CLIENT_ID" "$CLIENT_SECRET"
