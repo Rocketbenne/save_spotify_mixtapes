@@ -35,8 +35,9 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Create Environment and execute py script
+      shell: bash
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         
-      run: python main.py $CLIENT_ID $CLIENT_SECRET
+      run: python main.py "$CLIENT_ID" "$CLIENT_SECRET"
